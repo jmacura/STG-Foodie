@@ -1,5 +1,5 @@
 { "presets": {
-    "defaultLatLon": [13.3510, 49.7245, 1.5],
-    "defaultPlace": "Plzen",
-    "defaultRadius": 3
+    "defaultLatLon": [12.2154, 46.1393, 8],
+    "defaultPlace": "Belluno",
+    "defaultRadius": 8
 } }

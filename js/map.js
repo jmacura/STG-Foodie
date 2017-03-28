@@ -1,4 +1,5 @@
-           
+            var presets;
+            getPresets();
 
             var Hydda = L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                             attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -26,7 +27,7 @@
             
             var mymap = new L.Map('mapid', {
                 layers: [Hydda],
-                center: [49.75, 13.35],
+                center: [((typeof presets !== "undefined") ? presets.defaultLatLon[1] : 49.75), ((typeof presets !== "undefined") ? presets.defaultLatLon[0] : 13.35)],
                 zoom: 13,
                 fullscreenControl: true
               });
@@ -281,3 +282,18 @@
 
             mymap.panTo([center[0], center[1]]);
         }
+
+function getPresets() {
+	if(!presets) {
+		$.ajax('./presets.json', {
+		dataType: 'json',
+		async: false, //must be synchronous because the values are immediately used again in the body of the document
+		success: function(data) {
+			presets = data.presets;
+		},
+		error: function(jqXHR, status, err) {
+			console.log("Failed to load preset values: " + status + " " + err);
+		}
+		});
+	}
+}
