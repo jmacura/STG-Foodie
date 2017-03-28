@@ -1,0 +1,133 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!doctype html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="jmacura 2016">
+	<meta name="robots" content="index, follow">
+	<link href="favicon.ico" rel="shortcut icon" type="image/png">
+	<title>Smart Tourist Guide</title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/jquery-ui.min.css">
+	<link rel="stylesheet" href="dist/leaflet.css">
+	<link rel="stylesheet" href="dist/MarkerCluster.css">
+	<link rel="stylesheet" href="dist/MarkerCluster.Default.css">
+	<link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css">
+	<script src="dist/jquery-3.1.1.min.js"></script>
+	<script src="dist/jquery-ui.min.js"></script>
+	<script src="dist/tokml.js"></script>
+	<script src="dist/togpx.js"></script>
+	<script src="dist/FileSaver.min.js"></script>
+	<script src="js/skript.js" charset="utf-8"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="dist/leaflet.js"></script>
+	<script src="dist/leaflet.markercluster-src.js"></script>
+	<script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+</head>
+
+<body lang="cs">
+<main>
+
+<header>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 header-rows">
+				<h1><a href="index.htm">Smart <em>tourism guide</em> <span class="glyphicon glyphicon-globe"></span></a></h1>
+			</div>
+			<div class="col-sm-6 header-rows">
+				<a href="http://sdi4apps.eu/" target="_blank"><img src="images/sdi4apps_logo.png" class="sdi4apps-logo" alt="SDI4Apps" title="SDI4Apps"></a>
+			</div>
+		</div>
+	</div>
+</header>
+<div id="background">
+
+<div class="container">
+	<div class="jumbotron title-area">
+		<div class="subtitle">Search for Points Of Interest</div>
+		<p>By location name, given coordinates or around your position.</p>
+	</div>
+</div>
+
+
+
+<div id="content">
+	<section class="boxes">
+	<div class="box" onclick="animateBox(this);">
+		<img src="images/signpost.svg" title="Designed by Freepik from Flaticon" alt="Search by location name">
+		<p class="desc">Search by location name</p>
+		<form id="search-by-name"  class="form-group">
+			<fieldset>
+				<legend>Fill in your destination name</legend>
+				Location <input class="form-control" type="text" name="place" value="Plzen">
+				<input class="btn btn-default" type="submit" value="Search">
+			</fieldset>
+		</form><br>
+		<div id="digestLoader" class="progressbar"></div>
+		<div class="digest" id="digest-block">
+		</div>
+	</div>
+
+	<div class="box" onclick="animateBox(this);">
+		<img src="images/flag.svg" title="Designed by Freepik from Flaticon" alt="Search by given coordinates">
+		<p class="desc">Search by given coordinates</p>
+		<form id="search-by-latlon" class="form-group">
+			<fieldset>
+				<legend>Search by coordinates</legend>
+				Latitude <input  class="form-control" type="text" name="lat" value="49.7245">
+				Longitude <input  class="form-control" type="text" name="lon" value="13.3510">
+				Radius (km)<input  class="form-control" type="text" name="r" value="1.5">
+				<input class="btn btn-default" type="submit" value="Search" onclick="moveToMap()">
+			</fieldset>
+		</form>
+	</div>
+
+	<div class="box" onclick="animateBox(this);">
+		<img src="images/position.svg" title="Designed by Freepik from Flaticon" alt="Search around your position">
+		<p class="desc">Search around your position</p>
+		<form id="search-by-position" class="form-group">
+			<fieldset>
+				<legend>Search for POIs around me</legend>
+				Radius (km)<input  class="form-control" type="text" name="r" value="2">
+				<input class="btn btn-default" type="submit" value="Tell my location and search" onclick="moveToMap()">
+			</fieldset>
+		</form>
+	</div>
+	</section>
+
+</div>
+<div id="scroll-to"></div>
+</div>
+
+
+<div id="mapid"></div>
+<script src="js/map.js"></script>
+
+<section>
+<div id="resultsLoader" class="progressbar"></div>
+	<div class="container">
+		<div id="info-block"><p>&nbsp;</p></div>
+	</div>
+</section>
+
+<footer>
+	<div class="logo">
+		<img src="logo_web.svg" alt="author's logo">
+	</div>
+	<div class="credits">
+		Data in this page originates from <a href="http://sdi4apps.eu/spoi/" target="_blank">SPOI</a> dataset and are licensed under <a href="http://opendatacommons.org/licenses/odbl/" target="_blank">Open Database License</a>.<br>
+		Icons in this page are used from <a href="http://www.flaticon.com" target="_blank">Flaticon</a> and are subject to <a href="http://file000.flaticon.com/downloads/license/license.pdf" target="_blank">Flaticon Basic License</a>.<br>
+		<a href="https://github.com/jmacura/Smart-tourist-guide" target="_blank">Source code</a> of this app is licensed under a <a rel="license" href="https://www.mozilla.org/en-US/MPL/2.0/" target="_blank">Mozilla Public License Version 2.0</a>.<br>
+		Clustering by <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a> under MIT license.<br>
+		<p>Authors: Jan Macura, Jáchym Kellar and other GitHub contributors 2016–2017</p>
+		<p>University of West Bohemia | <a href="http://www.fav.zcu.cz/en" target="_blank">Faculty of Applied Sciences</a></p>
+	</div>
+</footer>
+
+
+</main>
+</body>
+</html>
