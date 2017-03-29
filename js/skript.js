@@ -30,7 +30,7 @@ function searchAround(e) {
 	}
 	runProgressbar('resultsLoader');
 	if(!navigator.geolocation) {
-		console.log("not possible in your browser");
+		printError("Not possible in your browser");
 		killProgressbar('resultsLoader');
 		return;
 	}
